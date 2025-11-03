@@ -1,0 +1,75 @@
+<div class="home-container">
+    <div class="home-content-container">
+        <div class="home-title-container">
+            I-BEC Tank Control
+        </div>
+        <div class="machine-id-container">
+            <div>Machine ID:</div>
+            <input id="machine-id"/>
+        </div>
+        <div id="no-machine-id-warning" class="warning-message">
+            Machine ID is not set.
+        </div>
+        <div id="execution-error" class="warning-message">            
+        </div>
+        <div class="active-command-container">
+            <div>Active command</div>
+            <div id="active-command">None</div>
+        </div>
+    </div>    
+</div>
+<script>
+    var machines$id = '';
+    const sendCommand = async function(command_types$type, machines$command_id) {        
+        if (!machines$id) {
+            document.getElementById('no-machine-id-warning').style.display = 'block';
+            return;
+        }
+        document.getElementById('no-machine-id-warning').style.display = 'none';
+        const inactiveCommand = document.getElementById('inactive-command');
+        if (inactiveCommand) {
+            inactiveCommand.id = 'active-command';
+        }
+        document.getElementById('active-command').innerHTML = command_types$type;  
+
+        const res = await fetch('/api/command', {
+            headers: {'content-type': 'application/json'},
+            method: 'POST',
+            body: JSON.stringify({
+                machines$command_id: machines$command_id,
+                machines$id: machines$id
+            })
+        })
+        if (res.ok) {
+            document.getElementById('execution-error').style.display = 'none';
+        } else {
+            const json = await res.json();            
+            document.getElementById('execution-error').style.display = 'block';
+            document.getElementById('execution-error').innerHTML = json.error;
+        }
+    }
+    document.addEventListener('keydown', async (e) => {
+        const machineIdInput = document.getElementById('machine-id');
+        if (document.activeElement === machineIdInput) {            
+            return;
+        }
+        machines$id = machineIdInput.value;
+        if (e.key === "ArrowUp") {
+            await sendCommand("ArrowUp", 1);
+        } else if (e.key === "ArrowDown") {
+            await sendCommand("ArrowDown", 2);
+        } else if (e.key === "ArrowLeft") {
+            await sendCommand("ArrowLeft", 3);
+        } else if (e.key === "ArrowRight") {
+            await sendCommand("ArrowRight", 4);
+        } else if (e.key === ' ') {
+            await sendCommand("Space", 5);
+        } else if (e.key === "1") {
+            await sendCommand("Speed 1", 6);
+        } else if (e.key === "2") {
+            await sendCommand("Speed 2", 7);
+        } else if (e.key === "3") {
+            await sendCommand("Speed 3", 8);
+        } 
+    });
+</script>

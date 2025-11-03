@@ -1,0 +1,66 @@
+html {
+    background-color: black;
+    width: 100%;
+}
+
+body {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color:azure;
+}
+
+.home-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    .home-content-container {        
+        display: flex;
+        flex-direction: column;
+        .warning-message {
+            font-size: 11px;
+            font-style: italic;
+            color: crimson;
+            text-align: center;
+            margin-top: 2px;
+            display: none;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+        .home-title-container {
+            font-size: 28px;
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            text-align: center;
+        }
+        .machine-id-container {
+            display: flex;
+            flex-direction: row;
+        }
+        .active-command-container {     
+            margin-top: 36px;       
+            display: flex;
+            flex-direction: column;
+            font-size: 32px;
+            text-align: center;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+            #active-command {
+                font-size: 36px;
+                color:cyan;
+                font-family: Tahoma, sans-serif;
+                font-style: italic;
+            }
+            #inactive-command {
+                font-size: 36px;
+                color:darkcyan;
+                font-family: Tahoma, sans-serif;
+            }
+        }
+    }
+    
+}
+
+.footer-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;    
+    position: absolute;
+    bottom: 10px;
+}
