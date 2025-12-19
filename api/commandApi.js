@@ -1,4 +1,4 @@
-const { sendCommandToMachine } = require("../db/machines");
+const { sendCommandToMachine, setMachineStatusId } = require("../db/machines");
 
 const command = {
   post: async function (req, res, conn) {
@@ -10,6 +10,7 @@ const command = {
       machines$command_id
     );
     if (updated) {
+      await setMachineStatusId(conn, machines$id, 1);
       res.status(201).send({});
     } else {
       res.status(400).send({ error: `machine ${machines$id} not found` });

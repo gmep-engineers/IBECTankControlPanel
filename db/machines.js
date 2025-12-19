@@ -10,6 +10,18 @@ const sendCommandToMachine = async function (
   return result.affectedRows > 0;
 };
 
+const setMachineStatusId = async function (
+  conn,
+  machines$id,
+  machines$statusId
+) {
+  const query = `
+  update machines set status_id = ? where id = ?
+  `;
+  await conn.query(query, [machines$statusId, machines$id]);
+};
+
 module.exports = {
   sendCommandToMachine,
+  setMachineStatusId,
 };
