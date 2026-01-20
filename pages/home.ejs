@@ -17,13 +17,7 @@
 </div>
 <script>
   var machines$id = "";
-  var currentCommand = null;
   const sendCommand = async function (command_types$type, machines$command_id) {
-    if (currentCommand === machines$command_id) {
-      return;
-    } else {
-      currentCommand = machines$command_id;
-    }
     if (!machines$id) {
       document.getElementById("no-machine-id-warning").style.display = "block";
       return;
@@ -73,24 +67,6 @@
       await sendCommand("Speed 2", 7);
     } else if (e.key === "3") {
       await sendCommand("Speed 3", 8);
-    }
-  });
-  document.addEventListener("keyup", async (e) => {
-    const machineIdInput = document.getElementById("machine-id");
-    if (document.activeElement === machineIdInput) {
-      return;
-    }
-    machines$id = machineIdInput.value;
-    if (e.key === "ArrowUp") {
-      await sendCommand("Space", 5);
-    } else if (e.key === "ArrowDown") {
-      await sendCommand("Space", 5);
-    } else if (e.key === "ArrowLeft") {
-      await sendCommand("Space", 5);
-    } else if (e.key === "ArrowRight") {
-      await sendCommand("Space", 5);
-    } else if (e.key === " ") {
-      await sendCommand("Space", 5);
     }
   });
 </script>
